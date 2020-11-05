@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Configuration;
-using YMLParser;
 
 namespace YMLParser
 {
@@ -17,7 +16,14 @@ namespace YMLParser
         /// <returns></returns>
         private SqlConnection GetConnection()
         {
-            return new SqlConnection(ConfigurationManager.ConnectionStrings["DockerDB"].ConnectionString);
+            try
+            {
+                return new SqlConnection(ConfigurationManager.ConnectionStrings["DockerDB"].ConnectionString);
+            }
+            catch (SqlException sqlEx){
+                Console.WriteLine(sqlEx.Message);
+                return null;
+            }
         }
         /// <summary>
         /// Creates new entry in database given shop data.

@@ -75,6 +75,7 @@ namespace YMLParser
                csvWriter.Configuration.HasHeaderRecord = true;
                csvWriter.Configuration.AutoMap<ShopDto>();
                csvWriter.WriteHeader<ShopDto>();
+               csvWriter.NextRecord();
                csvWriter.WriteRecords(items);
                writer.Flush();
                var result = Encoding.UTF8.GetString(memory.ToArray());
